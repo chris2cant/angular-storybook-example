@@ -1,0 +1,16 @@
+<div class="my-card">
+  <div class="image-container" *ngIf="image">
+    <img class="image" [src]="image" alt="card-illustration" />
+  </div>
+  <div class="body">
+    <h2 class="title">{{ title }}</h2>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+    <div class="button-container" *ngIf="onClick">
+      <div>
+        <button class="button" (click)="onButtonClick()">Click Me !</button>
+      </div>
+    </div>
+  </div>
+</div>

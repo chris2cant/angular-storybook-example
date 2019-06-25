@@ -5,7 +5,7 @@ const modules = {
   declarations: []
 };
 
-storiesOf('Muesli', module)
+storiesOf('Storybook', module)
   .addDecorator(moduleMetadata(modules))
   .add('Welcome !', () => ({
     template: `
