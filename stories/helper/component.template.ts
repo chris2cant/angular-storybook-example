@@ -33,6 +33,4 @@ export const layout = wrap(
   (content) => `<div style="padding: 16px;">${content}</div>`
 );
 
-export const xray = wrap(
-  (content) => `<div class="xray-theme">${content}</div>`
-);
+export const xray = wrap((content) => `<div class="xray">${content}</div>`);

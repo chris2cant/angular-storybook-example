@@ -4,6 +4,7 @@ import { HighlightJsModule } from 'ngx-highlight-js';
 import { MyCardComponent } from 'src/app/my-card/my-card.component';
 import { withKnobs, text, files } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { booleanXRay, withXRay } from '../helper/xray.helper.ts';
 
 const modules = {
   imports: [HighlightJsModule],
@@ -28,6 +29,7 @@ const params = `
 `;
 
 storiesOf('Component.My Card', module)
+  .addDecorator(withXRay)
   .addDecorator(withKnobs)
   .addDecorator(moduleMetadata(modules))
   .add('With Button', () => ({
@@ -35,6 +37,7 @@ storiesOf('Component.My Card', module)
     props: {
       title: text('Title', 'Alaska'),
       image: files('Image', 'jpg', ['assets/alaska.jpg']),
-      onClick: action('Action')
+      onClick: action('Action'),
+      xrayMode: booleanXRay()
     }
   }));

@@ -1,8 +1,9 @@
 import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { getComponentTemplate } from '../helper/component.template';
+import { getComponentTemplate, xray } from '../helper/component.template';
 import { HighlightJsModule } from 'ngx-highlight-js';
 import { MyCardComponent } from 'src/app/my-card/my-card.component';
 import { withKnobs, text } from '@storybook/addon-knobs';
+import { booleanXRay, withXRay } from '../helper/xray.helper.ts';
 
 const modules = {
   imports: [HighlightJsModule],
@@ -27,11 +28,13 @@ const params = `
 `;
 
 storiesOf('Component.My Card', module)
+  .addDecorator(withXRay)
   .addDecorator(withKnobs)
   .addDecorator(moduleMetadata(modules))
   .add('Basic', () => ({
     template: getComponentTemplate(template, params),
     props: {
-      title: text('Title', 'Alaska')
+      title: text('Title', 'Alaska'),
+      xrayMode: booleanXRay()
     }
   }));

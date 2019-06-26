@@ -8,3 +8,10 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.xray {
+  * {
+    outline: solid 1px blue !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+}
