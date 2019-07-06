@@ -4,7 +4,7 @@ import { HighlightJsModule } from 'ngx-highlight-js';
 import { MyCardComponent } from 'src/app/my-card/my-card.component';
 import { withKnobs, text, files } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { booleanXRay, withXRay } from '../helper/xray.helper.ts';
+import { booleanXRay, withXRay } from '../helper/xray.helper';
 
 const modules = {
   imports: [HighlightJsModule],
@@ -38,8 +38,6 @@ storiesOf('Component.My Card', module)
       title: text('Title', 'Alaska'),
       image: files('Image', 'jpg', ['assets/alaska.jpg']),
       xrayMode: booleanXRay(),
-      onClick: () => {
-        action('My Card : Click Me !');
-      }
+      onClick: action('Action')
     }
   }));

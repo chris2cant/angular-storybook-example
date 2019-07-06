@@ -3,7 +3,8 @@ import { getComponentTemplate, xray } from '../helper/component.template';
 import { HighlightJsModule } from 'ngx-highlight-js';
 import { MyCardComponent } from 'src/app/my-card/my-card.component';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { booleanXRay, withXRay } from '../helper/xray.helper.ts';
+import { booleanXRay, withXRay } from '../helper/xray.helper';
+import { action } from '@storybook/addon-actions';
 
 const modules = {
   imports: [HighlightJsModule],
@@ -35,6 +36,7 @@ storiesOf('Component.My Card', module)
     template: getComponentTemplate(template, params),
     props: {
       title: text('Title', 'Alaska'),
+      onClick: action('Action'),
       xrayMode: booleanXRay()
     }
   }));
