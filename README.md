@@ -1,27 +1,129 @@
-# StorybookMontpellierjs
+# Angular Storybook Example
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+## Install
 
-## Development server
+### Install via npm
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```sh
+npm install --save-dev @storybook/angular babel-loader @babel/core
+```
 
-## Code scaffolding
+### Add npm script
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+./package.json
 
-## Build
+```json
+{
+  ...
+  "scripts": {
+    "storybook": "start-storybook"
+  }
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Create config files
 
-## Running unit tests
+Execute this command a the root folder
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```sh
+mkdir .storybook; cd .storybook; touch addons.js; touch config.js; touch tsconfig.json; touch preview-head.html; cd -
+```
 
-## Running end-to-end tests
+#### config.js
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+./.storybook/config.js
 
-## Further help
+```js
+import { configure, addParameters } from '@storybook/angular';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+addParameters({
+  options: {}
+});
+
+// Loading stories dynamically
+const req = require.context('..', true, /\.story\.ts$/);
+
+// Index page
+require('../stories/index.story.ts');
+
+function loadStories() {
+  req.keys().forEach((filename) => req(filename));
+}
+
+configure(loadStories, module);
+```
+
+### tsconfig.json
+
+./.storybook/tsconfig.json
+
+```json
+{
+  "extends": "../tsconfig.json",
+  "exclude": [
+    "../src/test.ts",
+    "../src/**/*.spec.ts",
+    "../projects/**/*.spec.ts"
+  ],
+  "include": ["../src/**/*"]
+}
+```
+
+### Create stories folder
+
+Execute this command a the root folder
+
+```sh
+mkdir stories; cd stories; touch index.story.ts; cd -
+```
+
+### Index story
+
+./stories/index.story.ts
+
+```js
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+
+const modules = {
+  imports: [],
+  declarations: []
+};
+
+storiesOf('Storybook', module)
+  .addDecorator(moduleMetadata(modules))
+  .add('Welcome !', () => ({
+    template: `
+    	<div>
+    		Welcome
+    	</div>
+    `
+  }));
+```
+
+### It's working !
+
+```sh
+# Default run
+npm run storybook
+# Run with defined port
+npm run storybook -- --port 4242
+```
+
+## Addons
+
+```sh
+# @storybook/addons : Addons available
+# @storybook/addon-actions : Display data received by event handlers
+# @storybook/addon-knobs : Dynamic props
+# @storybook/addon-viewport : Mobile display
+npm install --save-dev @storybook/addons @storybook/addon-actions @storybook/addon-knobs @storybook/addon-viewport
+```
+
+`./.storybook/addons.js`
+
+```js
+// The order decide the order in storybook tab
+import '@storybook/addon-knobs/register';
+import '@storybook/addon-actions/register';
+import '@storybook/addon-viewport/register';
+```
